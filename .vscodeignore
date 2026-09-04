@@ -1,0 +1,7 @@
+.gitignore
+.git
+.vscode
+node_modules
+.DS_Store
+*.ts
+!out

@@ -1,0 +1,47 @@
+{
+  "name": "codequest",
+  "displayName": "CodeQuest",
+  "description": "Your Git repository is a playable RPG",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codequest.enter",
+        "title": "CodeQuest: Enter Repository"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "codequest.enter",
+        "key": "ctrl+alt+q",
+        "mac": "cmd+alt+q"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --platform=node --target=node18",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "build": "npm run esbuild && npm run build-game",
+    "build-game": "esbuild ./src/game/index.ts --bundle --outfile=out/game.js --target=es2020 --format=iife --global-name=CodeQuestGame",
+    "build-game-watch": "npm run build-game -- --sourcemap --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "phaser": "^3.55.2",
+    "simple-git": "^3.20.0"
+  }
+}
